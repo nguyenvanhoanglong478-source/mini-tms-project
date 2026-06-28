@@ -2,13 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebas
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAkP9_W4kjD9uxZMOj_HuVXouS7gkkkaBE",
+  authDomain: "mini-tms-project.firebaseapp.com",
+  databaseURL: "https://mini-tms-project-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mini-tms-project",
+  storageBucket: "mini-tms-project.firebasestorage.app",
+  messagingSenderId: "1012158831029",
+  appId: "1:1012158831029:web:863f64b195f71bef6121fc"
 };
 
 // Khởi tạo Firebase
