@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài xế - TMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>📍 Thông tin Chuyến đi</h2>
+        <div class="form-group">
+            <label>Mã xe (Biển số):</label>
+            <input type="text" id="vehicleId" placeholder="VD: 51H-12345" required>
+        </div>
+        <div class="form-group">
+            <label>Tên Tài xế:</label>
+            <input type="text" id="driverName" placeholder="Nhập tên tài xế" required>
+        </div>
+        <div class="form-group">
+            <label>Trạng thái đơn hàng:</label>
+            <select id="vehicleStatus">
+                <option value="Đang giao hàng">Đang giao hàng</option>
+                <option value="Tạm dừng">Tạm dừng (Nghỉ/Đổ xăng)</option>
+                <option value="Đã giao xong">Đã giao xong</option>
+            </select>
+        </div>
+        
+        <div class="buttons">
+            <button id="btnStart" class="btn btn-primary">Bắt đầu chuyến đi</button>
+            <button id="btnStop" class="btn btn-danger" disabled>Kết thúc</button>
+        </div>
+
+        <p id="status-message">Trạng thái: Chưa bật GPS</p>
+    </div>
+
+    <script type="module" src="driver.js"></script>
+</body>
+</html>
