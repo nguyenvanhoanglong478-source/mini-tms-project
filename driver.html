@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>📍 Thông tin Chuyến đi</h2>
+    <div class="container" style="max-width: 650px; margin: 30px auto;">
+        <h2>📍 Thông tin Chuyến đi & Đơn hàng</h2>
+        
         <div class="form-group">
             <label>Mã xe (Biển số):</label>
             <input type="text" id="vehicleId" placeholder="VD: 51H-12345" required>
@@ -17,8 +18,38 @@
             <label>Tên Tài xế:</label>
             <input type="text" id="driverName" placeholder="Nhập tên tài xế" required>
         </div>
+
         <div class="form-group">
-            <label>Trạng thái đơn hàng:</label>
+            <label>Điểm đi (Nơi nhận hàng):</label>
+            <input type="text" id="startLocation" placeholder="VD: Kho Bình Dương" required>
+        </div>
+        <div class="form-group">
+            <label>Điểm đến (Nơi giao hàng):</label>
+            <input type="text" id="endLocation" placeholder="VD: Quận 7, TP.HCM" required>
+        </div>
+        <div class="form-group">
+            <label>Tên khách hàng:</label>
+            <input type="text" id="customerName" placeholder="VD: Công ty TNHH ABC" required>
+        </div>
+        <div class="form-group">
+            <label>Loại hàng giao:</label>
+            <select id="cargoType">
+                <option value="Hàng điện tử">Hàng điện tử</option>
+                <option value="Thực phẩm">Thực phẩm</option>
+                <option value="Hàng dễ vỡ">Hàng dễ vỡ</option>
+                <option value="Khác">Khác</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Thời gian giao dự kiến:</label>
+            <input type="datetime-local" id="deliveryTime" required>
+        </div>
+        <div class="form-group">
+            <label>Phí phụ thu (Nếu có) - VNĐ:</label>
+            <input type="number" id="surcharge" placeholder="VD: 50000 (Để trống nếu không có)">
+        </div>
+        <div class="form-group">
+            <label>Trạng thái vận chuyển:</label>
             <select id="vehicleStatus">
                 <option value="Đang giao hàng">Đang giao hàng</option>
                 <option value="Tạm dừng">Tạm dừng (Nghỉ/Đổ xăng)</option>
