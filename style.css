@@ -38,3 +38,19 @@ body { background-color: #f4f7f6; color: #333; }
 .bg-active { background: #28a745; }
 .bg-paused { background: #ffc107; color: black; }
 .bg-done { background: #6c757d; }
+
+/* Thêm vào cuối file style.css để tối ưu hiển thị Card thông tin */
+.vehicle-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.sidebar h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #1a202c;
+    border-bottom: 2px solid #edf2f7;
+    padding-bottom: 10px;
+}
