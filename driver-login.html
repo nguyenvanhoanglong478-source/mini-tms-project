@@ -210,7 +210,8 @@
   appId: "1:535774659933:web:600122096d9dea2f5514b4"
 };
 
-        const app = initializeApp(firebaseConfig);
+        // Đặt tên app riêng là "DriverApp" để tách biệt phiên đăng nhập (session) với app Quản lý, tránh lỗi ghi đè đăng xuất
+        const app = initializeApp(firebaseConfig, "DriverApp");
         const auth = getAuth(app);
         const db = getDatabase(app);
 
