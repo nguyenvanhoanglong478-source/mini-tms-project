@@ -19,6 +19,7 @@
   --text-main: #1a1a2e;
   --text-muted: #6b7280;
   --border-color: #e5e7eb;
+  color-scheme: light;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -160,6 +161,58 @@ select.form-control option {
   font-size: 0.9rem;
 }
 .toast.show { transform: translateX(0); }
+
+/* =========================================================
+   DRIVER.HTML — MOBILE RESPONSIVE
+   ========================================================= */
+
+/* Form controls full width, gọn trên màn nhỏ */
+@media (max-width: 600px) {
+  .container { padding: 12px !important; }
+  .card { padding: 14px !important; border-radius: 10px !important; }
+
+  .form-control {
+    font-size: 0.95rem !important;
+    padding: 11px 12px !important;
+  }
+
+  /* Nút "Kết thúc" sticky cuối màn hình */
+  .btn-end-trip {
+    position: sticky !important;
+    bottom: 0 !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    z-index: 50 !important;
+    margin-top: 0 !important;
+  }
+
+  /* Header tài xế gọn hơn */
+  header { padding: 10px 14px !important; }
+  .user-info { gap: 8px !important; }
+  .user-info small { font-size: 0.72rem !important; }
+  .avatar { width: 34px !important; height: 34px !important; font-size: 1rem !important; }
+
+  /* Timeline 3 bước */
+  .timeline { gap: 0 !important; }
+  .timeline-step { padding: 8px 4px !important; }
+  .timeline-step .step-label { font-size: 0.7rem !important; }
+  .timeline-connector { min-width: 20px !important; }
+
+  /* GPS bar thông tin */
+  .gps-status-bar {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    font-size: 0.78rem !important;
+  }
+  .gps-stat { flex: 1 1 80px !important; }
+
+  /* Card title */
+  .card-title { font-size: 1rem !important; }
+
+  /* Online badge */
+  .badge-online { font-size: 0.75rem !important; padding: 3px 8px !important; }
+}
+
 </style>
 </head>
 <body>
