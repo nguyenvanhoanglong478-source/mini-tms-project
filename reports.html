@@ -231,6 +231,48 @@
         </div>
     </aside>
 
+    <!-- Script giao diện (sidebar/mobile menu) tách riêng khỏi script Firebase (type="module") bên dưới.
+         Lý do: script type="module" phải chờ tải xong Firebase SDK qua mạng rồi mới chạy dòng code nào,
+         nên nếu để chung, sidebar sẽ luôn hiện sai trạng thái (bị "giật") mỗi khi chuyển trang.
+         Đặt script thường (không phải module) ở đây giúp nó chạy ngay lập tức, không phải chờ mạng. -->
+    <script>
+        (function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const desktopToggle = document.getElementById('desktop-toggle');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (window.innerWidth > 1024 && localStorage.getItem('tms_sidebar') === 'collapsed') {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+            }
+
+            desktopToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                localStorage.setItem('tms_sidebar', sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded');
+            });
+
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.add('mobile-open');
+                overlay.classList.add('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            });
+        })();
+    </script>
+
     <main class="main-content" id="main-content">
         <div class="topbar">
             <h2 class="page-title">Báo cáo & Lịch sử chuyến đi</h2>
@@ -344,40 +386,8 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // --- UI & SIDEBAR RESPONSIVE LOGIC ---
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
-        const desktopToggle = document.getElementById('desktop-toggle');
-        const mobileToggle = document.getElementById('mobile-toggle');
-        const overlay = document.getElementById('sidebar-overlay');
-
-        if (window.innerWidth > 1024 && localStorage.getItem('tms_sidebar') === 'collapsed') {
-            sidebar.classList.add('collapsed');
-            mainContent.classList.add('expanded');
-        }
-
-        desktopToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            localStorage.setItem('tms_sidebar', sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded');
-        });
-
-        mobileToggle.addEventListener('click', () => {
-            sidebar.classList.add('mobile-open');
-            overlay.classList.add('active');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('mobile-open');
-            overlay.classList.remove('active');
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth <= 1024) {
-                sidebar.classList.remove('mobile-open');
-                overlay.classList.remove('active');
-            }
-        });
+        // Lưu ý: logic sidebar/mobile-menu đã chuyển sang script riêng phía trên (không phải module)
+        // để không bị chặn bởi thời gian tải Firebase SDK. Xem script ngay sau thẻ </aside>.
 
         let allHistoryData = [];
         let currentFilteredData = [];
