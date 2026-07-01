@@ -191,8 +191,8 @@ const firebaseConfig = {
   appId: "1:535774659933:web:600122096d9dea2f5514b4"
 };
 
-// App riêng cho ManagerApp, để session độc lập với DriverApp
-const app = initializeApp(firebaseConfig, "ManagerApp");
+// ĐÃ SỬA: Đưa về App mặc định để đồng bộ Session với trang Dashboard, Fleet, Reports
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
@@ -235,10 +235,7 @@ form.addEventListener('submit', async (e) => {
   setLoading(true);
 
   try {
-    // Ghi nhớ đăng nhập: local persistence giữ session qua các lần đóng trình duyệt,
-    // ngược lại chỉ giữ trong phiên hiện tại (session persistence)
     await setPersistence(auth, rememberMe.checked ? browserLocalPersistence : browserSessionPersistence);
-
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
