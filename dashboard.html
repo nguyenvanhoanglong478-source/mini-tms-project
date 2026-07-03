@@ -249,53 +249,6 @@
         </div>
     </aside>
 
-    <!-- Script giao diện (sidebar/mobile menu) tách riêng khỏi script Firebase (type="module") bên dưới.
-         Lý do: script type="module" phải chờ tải xong Firebase SDK qua mạng rồi mới chạy dòng code nào,
-         nên nếu để chung, sidebar sẽ luôn hiện sai trạng thái (bị "giật") mỗi khi chuyển trang.
-         Đặt script thường (không phải module) ở đây giúp nó chạy ngay lập tức, không phải chờ mạng. -->
-    <script>
-        (function () {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-            const desktopToggle = document.getElementById('desktop-toggle');
-            const mobileToggle = document.getElementById('mobile-toggle');
-            const overlay = document.getElementById('sidebar-overlay');
-
-            // Phục hồi trạng thái sidebar từ localStorage cho màn hình Desktop (>1024px)
-            if (window.innerWidth > 1024 && localStorage.getItem('tms_sidebar') === 'collapsed') {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('expanded');
-            }
-
-            // Sự kiện gập/mở trên Desktop
-            desktopToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('collapsed');
-                mainContent.classList.toggle('expanded');
-                localStorage.setItem('tms_sidebar', sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded');
-            });
-
-            // Sự kiện mở menu trên Mobile
-            mobileToggle.addEventListener('click', () => {
-                sidebar.classList.add('mobile-open');
-                overlay.classList.add('active');
-            });
-
-            // Đóng menu Mobile khi click ra ngoài overlay
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('mobile-open');
-                overlay.classList.remove('active');
-            });
-
-            // Cập nhật lại UI khi người dùng resize cửa sổ trình duyệt
-            window.addEventListener('resize', () => {
-                if (window.innerWidth <= 1024) {
-                    sidebar.classList.remove('mobile-open');
-                    overlay.classList.remove('active');
-                }
-            });
-        })();
-    </script>
-
     <main class="main-content" id="main-content">
         <div class="topbar">
             <h2>Tổng quan hệ thống</h2>
@@ -382,6 +335,55 @@
         </div>
     </main>
 
+    <!-- Script giao diện (sidebar/mobile menu) tách riêng khỏi script Firebase (type="module") bên dưới.
+         Lý do: script type="module" phải chờ tải xong Firebase SDK qua mạng rồi mới chạy dòng code nào,
+         nên nếu để chung, sidebar sẽ luôn hiện sai trạng thái (bị "giật") mỗi khi chuyển trang.
+         Đặt script thường (không phải module) ở đây giúp nó chạy ngay lập tức, không phải chờ mạng.
+         Đặt SAU </main> để phần tử #main-content đã tồn tại trong DOM lúc script này chạy
+         (đặt trước <main> sẽ khiến #main-content chưa có, gây lỗi khi gập/mở sidebar). -->
+    <script>
+        (function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const desktopToggle = document.getElementById('desktop-toggle');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            // Phục hồi trạng thái sidebar từ localStorage cho màn hình Desktop (>1024px)
+            if (window.innerWidth > 1024 && localStorage.getItem('tms_sidebar') === 'collapsed') {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+            }
+
+            // Sự kiện gập/mở trên Desktop
+            desktopToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                localStorage.setItem('tms_sidebar', sidebar.classList.contains('collapsed') ? 'collapsed' : 'expanded');
+            });
+
+            // Sự kiện mở menu trên Mobile
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.add('mobile-open');
+                overlay.classList.add('active');
+            });
+
+            // Đóng menu Mobile khi click ra ngoài overlay
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            });
+
+            // Cập nhật lại UI khi người dùng resize cửa sổ trình duyệt
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('mobile-open');
+                    overlay.classList.remove('active');
+                }
+            });
+        })();
+    </script>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     
     <script type="module">
@@ -404,7 +406,7 @@
         const db = getDatabase(app);
 
         // Lưu ý: logic sidebar/mobile-menu đã chuyển sang script riêng phía trên (không phải module)
-        // để không bị chặn bởi thời gian tải Firebase SDK. Xem script ngay sau thẻ </aside>.
+        // để không bị chặn bởi thời gian tải Firebase SDK. Xem script ngay phía trên, trước script Firebase này.
 
         function showToast(msg, type = 'info') {
             const colors = { info: 'var(--accent-color)', warning: 'var(--warning-color)', error: 'var(--danger-color)' };
